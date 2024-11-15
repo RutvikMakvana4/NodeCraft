@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import path from "path";
 import "./src/common/config/dbConnection";
+import swaggerMainRoute from "./src/common/swagger";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,6 +12,8 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(swaggerMainRoute);
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://${process.env.HOST}:${PORT}`);

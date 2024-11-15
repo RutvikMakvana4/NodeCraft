@@ -16,7 +16,9 @@
     "@babel/preset-env": "^7.26.0",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "mongoose": "^8.8.1"
+    "mongoose": "^8.8.1",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
