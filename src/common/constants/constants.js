@@ -1,1 +1,5 @@
-module.exports = {};
+module.exports = {
+  PASSWORD: {
+    SALT: 10,
+  },
+};

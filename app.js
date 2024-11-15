@@ -3,6 +3,7 @@ import express from "express";
 import path from "path";
 import "./src/common/config/dbConnection";
 import swaggerMainRoute from "./src/common/swagger";
+import mainRoute from "./routes/index";
 import helmet from "helmet";
 
 const app = express();
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 });
 
 app.use(swaggerMainRoute);
+app.use(mainRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://${HOST}:${PORT}`);
