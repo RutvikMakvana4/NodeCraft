@@ -10,6 +10,16 @@ class authControllers {
     const data = await authServices.register(req, res, req.body);
     return res.send({ message: "User registered successfully", data });
   }
+
+  /**
+   * @description: Login
+   * @param {*} req
+   * @param {*} res
+   */
+  static async login(req, res) {
+    const data = await authServices.login(req.body, req, res);
+    return res.send({ message: "User Login successfully", data });
+  }
 }
 
 export default authControllers;

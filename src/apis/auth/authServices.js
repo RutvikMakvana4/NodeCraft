@@ -1,5 +1,8 @@
 import User from "../../../models/users";
-import { ConflictException } from "../../common/exceptions/errorException";
+import {
+  BadRequestException,
+  ConflictException,
+} from "../../common/exceptions/errorException";
 import authHelper from "../../common/helper/authHelper";
 import RegisterResource from "./resources/registerResource";
 
@@ -32,6 +35,33 @@ class authServices {
     });
 
     return { ...new RegisterResource(newUser) };
+  }
+
+  /**
+   * @description: Login
+   * @param {*} data
+   * @param {*} req
+   * @param {*} res
+   */
+  static async login(data, req, res) {
+    const { email, password } = data;
+
+    const userExist = await User.findOne({ email });
+
+    if (!userExist) {
+      throw new BadRequestException("Account does not exist.");
+    }
+
+    const isPasswordValid = await authHelper.comparePassword(
+      password,
+      userExist.password
+    );
+
+    if (!isPasswordValid) {
+      throw new BadRequestException("Invalid password");
+    }
+
+    return;
   }
 }
 

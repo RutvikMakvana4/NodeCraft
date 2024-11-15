@@ -17,6 +17,21 @@ class authHelper {
       throw new Error("Failed to hash password");
     }
   }
+
+  /**
+   * @description: Compare function
+   * @param {*} plainPassword
+   * @param {*} hashedPassword
+   * @returns
+   */
+  static async comparePassword(plainPassword, hashedPassword) {
+    try {
+      const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
+      return isMatch;
+    } catch (error) {
+      throw new Error("Failed to compare passwords");
+    }
+  }
 }
 
 export default authHelper;

@@ -116,3 +116,31 @@ paths:
           $ref: "#/components/responses/ConflictError"
         "422":
           $ref: "#/components/responses/UnprocessableEntity"
+
+  /auth/login:
+    post:
+      description: login user
+      summary: login user
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: rutvik@mailinator.com
+                password:
+                  type: string
+                  example: rutvik@123
+
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
