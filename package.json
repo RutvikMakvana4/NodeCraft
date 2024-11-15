@@ -20,8 +20,11 @@
     "express-async-handler": "^1.2.0",
     "express-joi-validation": "^5.0.1",
     "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
     "moment": "^2.30.1",
     "mongoose": "^8.8.1",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
     "swagger-ui-express": "^5.0.1",
     "yamljs": "^0.3.0"
   },

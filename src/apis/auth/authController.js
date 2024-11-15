@@ -20,6 +20,26 @@ class authControllers {
     const data = await authServices.login(req.body, req, res);
     return res.send({ message: "User Login successfully", data });
   }
+
+  /**
+   * @description: Refresh token
+   * @param {*} req
+   * @param {*} res
+   */
+  static async refreshToken(req, res) {
+    const data = await authServices.refreshToken(req.body, req, res);
+    return res.send({ data });
+  }
+
+  /**
+   * @description: Logout
+   * @param {*} req
+   * @param {*} res
+   */
+  static async logout(req, res) {
+    await authServices.logout(req.body, req, res);
+    return res.send({ message: "Logged out successfully" });
+  }
 }
 
 export default authControllers;

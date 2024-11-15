@@ -2,9 +2,13 @@ import User from "../../../models/users";
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
+  NotFoundException,
 } from "../../common/exceptions/errorException";
 import authHelper from "../../common/helper/authHelper";
 import RegisterResource from "./resources/registerResource";
+import RefreshToken from "./../../../models/refreshToken";
+import { JWT } from "../../common/constants/constants";
 
 class authServices {
   /**
@@ -61,6 +65,56 @@ class authServices {
       throw new BadRequestException("Invalid password");
     }
 
+    const accessToken = await authHelper.generateAccessToken({
+      userId: userExist._id,
+    });
+
+    const refreshToken = await authHelper.generateRefreshToken({
+      userId: userExist._id,
+    });
+
+    return { accessToken, refreshToken };
+  }
+
+  /**
+   * @description: Refresh token
+   * @param {*} data
+   * @param {*} req
+   * @param {*} res
+   */
+  static async refreshToken(data, req, res) {
+    const { refreshToken } = data;
+
+    const payload = await authHelper.verifyRefreshToken(refreshToken);
+
+    const storedToken = await RefreshToken.findOne({ token: refreshToken });
+    if (!storedToken || storedToken.isRevoked) {
+      throw new ForbiddenException("Refresh token is invalid or revoked");
+    }
+
+    const newAccessToken = await authHelper.generateAccessToken(payload.userId);
+
+    return {
+      accessToken: newAccessToken,
+    };
+  }
+
+  /**
+   * @description: logout
+   * @param {*} data
+   * @param {*} req
+   * @param {*} res
+   */
+  static async logout(data, req, res) {
+    const { refreshToken } = data;
+
+    const storedToken = await RefreshToken.findOne({ token: refreshToken });
+    if (!storedToken) {
+      throw new NotFoundException("Token not found");
+    }
+
+    storedToken.isRevoked = true;
+    await storedToken.save();
     return;
   }
 }

@@ -144,3 +144,57 @@ paths:
           $ref: "#/components/responses/ConflictError"
         "422":
           $ref: "#/components/responses/UnprocessableEntity"
+
+  /auth/refresh-token:
+    post:
+      description: Refresh token
+      summary: Refresh token
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzM3NDAxMjI3OGEzMGRiODUyYTM1N2MiLCJpYXQiOjE3MzE2Nzc5ODUsImV4cCI6MTczMjI4Mjc4NX0.yUkxGyGn-8ljEEjjEoSi5H2P_CocV2ptaMRCQz7O4Dw
+
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+  /auth/logout:
+    post:
+      description: Logout
+      summary: Logout
+      tags:
+        - Auth
+
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzM3NDAxMjI3OGEzMGRiODUyYTM1N2MiLCJpYXQiOjE3MzE2Nzc5ODUsImV4cCI6MTczMjI4Mjc4NX0.yUkxGyGn-8ljEEjjEoSi5H2P_CocV2ptaMRCQz7O4Dw
+
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"

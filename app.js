@@ -5,6 +5,7 @@ import "./src/common/config/dbConnection";
 import swaggerMainRoute from "./src/common/swagger";
 import mainRoute from "./routes/index";
 import helmet from "helmet";
+import "./src/common/config/jwtPassport";
 
 const app = express();
 
@@ -25,6 +26,8 @@ app.get("/", (req, res) => {
 
 app.use(swaggerMainRoute);
 app.use(mainRoute);
+
+app.use(require("./src/common/middleware/error"));
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://${HOST}:${PORT}`);
