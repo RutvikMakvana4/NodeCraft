@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    age: {
+      type: Number,
+      require: true,
+    },
     joinedAt: {
       type: Date,
     },

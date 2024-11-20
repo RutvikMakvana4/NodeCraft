@@ -216,3 +216,89 @@ paths:
           $ref: "#/components/responses/ConflictError"
         "422":
           $ref: "#/components/responses/UnprocessableEntity"
+
+  /post/upload:
+    post:
+      description: Upload post
+      summary: Upload post
+      tags:
+        - Post
+
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: title post
+                content:
+                  type: string
+                  example: content post
+
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+  /post/comment/{postId}:
+    post:
+      description: Give comment on post
+      summary: Give comment on post
+      tags:
+        - Post
+
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema:
+            type: string
+            example: 659e45cbd2d793f9ca90420b
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment:
+                  type: string
+                  example: Nice pic!
+
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+  /post/all:
+    get:
+      description: All post with user details
+      tags:
+        - Post
+
+      security:
+        - bearerAuth: []
+
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "409":
+          $ref: "#/components/responses/ConflictError"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
