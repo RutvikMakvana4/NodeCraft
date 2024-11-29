@@ -19,8 +19,13 @@ class userControllers {
    * @returns
    */
   static async userList(req, res) {
-    const data = await userServices.userList(req.user, req, res);
-    return res.send({ data });
+    const { data, meta } = await userServices.userList(
+      req.query,
+      req.user,
+      req,
+      res
+    );
+    return res.send({ data: data, meta: meta });
   }
 }
 

@@ -217,6 +217,34 @@ paths:
         "422":
           $ref: "#/components/responses/UnprocessableEntity"
 
+  /user/list:
+    get:
+      summary: Users list
+      tags:
+        - User
+      security:
+        - bearerAuth: []
+
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            example: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            example: 10
+
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+
   /post/upload:
     post:
       description: Upload post

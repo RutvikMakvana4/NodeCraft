@@ -19,9 +19,22 @@ class userServices {
    * @param {*} req
    * @param {*} res
    */
-  static async userList(auth, req, res) {
-    const findUsers = await User.find({ _id: auth });
-    return findUsers;
+  static async userList(query, auth, req, res) {
+    const page = parseInt(query.page) - 1 || 0;
+    const pageLimit = parseInt(query.limit) || 20;
+
+    const findUsers = await User.find({});
+
+    const meta = {
+      total: findUsers.length,
+      perPage: pageLimit,
+      currentPage: page + 1,
+      lastPage: Math.ceil(findUsers.length / pageLimit),
+    };
+    return {
+      data: findUsers,
+      meta: meta,
+    };
   }
 }
 
