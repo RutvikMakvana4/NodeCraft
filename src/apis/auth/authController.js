@@ -12,6 +12,21 @@ class authControllers {
   }
 
   /**
+   * @description: Register with image
+   * @param {*} req
+   * @param {*} res
+   */
+  static async registerWithImage(req, res) {
+    const data = await authServices.registerWithImage(
+      req.body,
+      req.file,
+      req,
+      res
+    );
+    return res.send({ message: "User registered successfully", data });
+  }
+
+  /**
    * @description: Login
    * @param {*} req
    * @param {*} res

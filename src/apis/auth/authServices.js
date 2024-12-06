@@ -42,6 +42,32 @@ class authServices {
   }
 
   /**
+   * @description: Register with image
+   * @param {*} req
+   * @param {*} res
+   */
+  static async registerWithImage(data, file, req, res) {
+    let { name, email, password } = data;
+    email = email.toLowerCase();
+    const alreadyEmail = await User.findOne({ email });
+    if (alreadyEmail) {
+      throw new ConflictException(
+        "This email id is already in use | please try different Email Id"
+      );
+    }
+    const hashedPassword = await authHelper.hashPassword(password);
+
+    const newUser = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      profilePicture: file ? `users/profilePicture/${file.filename}` : null,
+      joinedAt: new Date(),
+    });
+    return { ...new RegisterResource(newUser) };
+  }
+
+  /**
    * @description: Login
    * @param {*} data
    * @param {*} req

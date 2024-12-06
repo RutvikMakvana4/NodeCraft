@@ -117,6 +117,39 @@ paths:
         "422":
           $ref: "#/components/responses/UnprocessableEntity"
 
+  /auth/register-image:
+    post:
+      summary: register user with image field
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Rutvik Makvana
+                email:
+                  type: string
+                  example: rutvik@mailinator.com
+                password:
+                  type: string
+                  example: rutvik@123
+                profilePicture:
+                  type: string
+                  format: binary
+
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+
   /auth/login:
     post:
       description: login user

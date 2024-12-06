@@ -27,6 +27,7 @@ app.get("/", (req, res) => {
 app.use(swaggerMainRoute);
 app.use(mainRoute);
 
+app.use(express.static(path.join(__dirname + "/public")));
 app.use(require("./src/common/middleware/error"));
 
 app.listen(PORT, () => {

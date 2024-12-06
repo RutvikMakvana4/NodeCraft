@@ -6,6 +6,8 @@ export default class RegisterResource {
     this._id = data._id;
     this.name = data.name;
     this.email = data.email;
+    this.profilePicture =
+      data.profilePicture !== null ? baseUrl(data.profilePicture) : null;
     this.joinedAt = moment(data.joinedAt).unix();
   }
 }

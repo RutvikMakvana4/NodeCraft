@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema(
       type: Number,
       require: true,
     },
+    profilePicture: {
+      type: String,
+      default: null,
+    },
     joinedAt: {
       type: Date,
     },
