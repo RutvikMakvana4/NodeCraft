@@ -1,4 +1,4 @@
-import { validationError } from "../exceptions/errorException";
+import { validationError } from "../exceptions/statusCodes";
 import GeneralError from "../../common/exceptions/generalError";
 
 const error = (error, req, res, next) => {
