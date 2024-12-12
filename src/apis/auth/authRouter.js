@@ -9,7 +9,6 @@ import validator from "../../common/config/joiValidation";
 const routes = express.Router();
 
 routes.post("/register", asyncHandler(authControllers.register));
-// routes.put('/update-user', authentication, storeFile('public/usersProfilePicture', 'profilePicture'), validator.body(ProfileDto), asyncWrap(userController.updateUser));
 routes.post(
   "/register-image",
   storeFile("public/users/profilePicture", "profilePicture"),

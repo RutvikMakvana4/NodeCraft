@@ -1,5 +1,6 @@
 import RegisterResource from "../auth/resources/registerResource";
 import User from "./../../../models/users";
+import UserListResource from "./resources/userListResource";
 
 class userServices {
   /**
@@ -32,7 +33,7 @@ class userServices {
       lastPage: Math.ceil(findUsers.length / pageLimit),
     };
     return {
-      data: findUsers,
+      data: new UserListResource(findUsers),
       meta: meta,
     };
   }
