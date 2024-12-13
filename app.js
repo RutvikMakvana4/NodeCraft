@@ -6,6 +6,7 @@ import swaggerMainRoute from "./src/common/swagger";
 import mainRoute from "./routes/index";
 import helmet from "helmet";
 import "./src/common/config/jwtPassport";
+import rateLimit from "express-rate-limit";
 
 const app = express();
 
@@ -24,6 +25,19 @@ app.all("*", (req, res, next) => {
   console.log(`API hit: ${req.method} ${req.originalUrl}`);
   next();
 });
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 3,
+  message: {
+    status: 429,
+    error: "Too many requests. Please try again later.",
+  },
+  standardHeaders: true,
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+app.use(limiter);
 
 app.get("/", (req, res) => {
   res.status(200).send("App is working!");
