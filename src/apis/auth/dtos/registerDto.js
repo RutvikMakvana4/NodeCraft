@@ -1,5 +1,7 @@
 import Joi from "joi";
 
+// DTO -> Data Transfer Objects
+
 export const registerDto = Joi.object().keys({
   name: Joi.string().required(),
   email: Joi.string().required(),

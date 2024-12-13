@@ -24,14 +24,19 @@ class userServices {
     const page = parseInt(query.page) - 1 || 0;
     const pageLimit = parseInt(query.limit) || 20;
 
-    const findUsers = await User.find({});
+    const findUsers = await User.find({})
+      .skip(page * pageLimit)
+      .limit(pageLimit);
+
+    const totalUsers = await User.find({});
 
     const meta = {
-      total: findUsers.length,
+      total: totalUsers.length,
       perPage: pageLimit,
       currentPage: page + 1,
-      lastPage: Math.ceil(findUsers.length / pageLimit),
+      lastPage: Math.ceil(totalUsers.length / pageLimit),
     };
+
     return {
       data: new UserListResource(findUsers),
       meta: meta,

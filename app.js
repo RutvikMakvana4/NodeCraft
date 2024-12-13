@@ -20,6 +20,11 @@ app.use(helmet()); // Adds security-related headers to the responses
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.all("*", (req, res, next) => {
+  console.log(`API hit: ${req.method} ${req.originalUrl}`);
+  next();
+});
+
 app.get("/", (req, res) => {
   res.status(200).send("App is working!");
 });
