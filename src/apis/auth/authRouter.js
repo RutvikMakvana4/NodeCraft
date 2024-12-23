@@ -20,3 +20,8 @@ routes.post("/refresh-token", asyncHandler(authControllers.refreshToken));
 routes.post("/logout", authentication, asyncHandler(authControllers.logout));
 
 module.exports = routes;
+
+// middleware step :-
+// 1. authentication -> check roles
+// 2. file upload
+// 3. validator

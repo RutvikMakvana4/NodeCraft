@@ -32,55 +32,37 @@ class postServices {
   }
 
   /**
-   *
+   * @description : Fetch Posts with User Details
    * @param {*} auth
    * @param {*} req
    * @param {*} res
    */
   static async getAllPosts(auth, req, res) {
-    // const result = await Post.aggregate([
-    //   {
-    //     $lookup: {
-    //       from: "users",
-    //       localField: "userId",
-    //       foreignField: "_id",
-    //       as: "author",
-    //     },
-    //   },
-    //   {
-    //     $unwind: "$author",
-    //   },
-    //   {
-    //     $project: {
-    //       title: 1,
-    //       content: 1,
-    //       "author.name": 1,
-    //       "author.email": 1,
-    //     },
-    //   },
-    // ]);
-
     const result = await Post.aggregate([
-      {
-        $group: {
-          _id: "$userId",
-          totalPosts: {
-            $count: {},
-          },
-        },
-      },
       {
         $lookup: {
           from: "users",
-          localField: "_id",
+          localField: "userId",
           foreignField: "_id",
-          as: "author",
+          as: "userData",
         },
       },
       {
-        $unwind: "$author",
+        $unwind: "$userData",
+      },
+      {
+        $group: {
+          _id: "$userData._id",
+          name: { $first: "$userData.name" },
+          email: { $first: "$userData.email" },
+          postCount: { $sum: 1 },
+        },
+      },
+      {
+        $sort: { postCount: -1 },
       },
     ]);
+
     console.log(result);
   }
 }
