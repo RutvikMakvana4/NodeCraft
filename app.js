@@ -7,6 +7,7 @@ import mainRoute from "./routes/index";
 import helmet from "helmet";
 import "./src/common/config/jwtPassport";
 import rateLimit from "express-rate-limit";
+import "./migrations/20241228160634-add-new-field";
 
 const app = express();
 

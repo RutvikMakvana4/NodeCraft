@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema(
     joinedAt: {
       type: Date,
     },
+    isMigrate: {
+      type: Boolean,
+    },
   },
   {
     timestamps: true,
