@@ -4,26 +4,33 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      require: true,
+      // require: true,
     },
     email: {
       type: String,
-      require: true,
-      index: {
-        unique: true,
-      },
+      // require: true,
+      // index: {
+      //   unique: true,
+      // },
     },
     password: {
       type: String,
-      require: true,
+      // require: true,
     },
     age: {
       type: Number,
-      require: true,
+      // require: true,
     },
     profilePicture: {
       type: String,
       default: null,
+    },
+    gender: {
+      type: String,
+      enum: ["Male", "Female"],
+    },
+    hobbies: {
+      type: [String],
     },
     joinedAt: {
       type: Date,

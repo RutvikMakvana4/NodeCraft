@@ -38,7 +38,7 @@ const limiter = rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
-app.use(limiter);
+// app.use(limiter);
 
 app.get("/", (req, res) => {
   res.status(200).send("App is working!");

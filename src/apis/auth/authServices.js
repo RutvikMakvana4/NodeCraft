@@ -16,7 +16,7 @@ class authServices {
    * @param {*} req
    * @param {*} res
    */
-  static async register(req, res, data) {
+  static async register(data, req, res) {
     let { name, email, password } = data;
 
     email = email.toLowerCase();
@@ -32,8 +32,7 @@ class authServices {
     const hashedPassword = await authHelper.hashPassword(password);
 
     const newUser = await User.create({
-      name,
-      email,
+      ...data,
       password: hashedPassword,
       joinedAt: new Date(),
     });
